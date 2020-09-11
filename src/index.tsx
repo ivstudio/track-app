@@ -2,12 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import { Normalize } from 'styled-normalize';
+import GlobalStyles from './styles/globals';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
 	<React.StrictMode>
 		<Normalize />
 		<App />
+		<GlobalStyles />
 	</React.StrictMode>,
 	document.getElementById('root')
 );
