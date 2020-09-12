@@ -2,7 +2,13 @@ import styled from 'styled-components';
 import spacing from '../../../styles/spacing';
 import colors from '../../../styles/colors';
 
-export const ContentRow = styled.div`
+interface IContentRow {
+	'data-testid'?: string;
+}
+
+export const ContentRow = styled.div.attrs((props: IContentRow) => ({
+	'data-testid': props['data-testid'],
+}))`
 	display: flex;
 	align-items: center;
 	min-height: 55px;
