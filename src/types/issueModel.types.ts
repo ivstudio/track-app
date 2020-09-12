@@ -3,7 +3,7 @@ export interface IUser {
 }
 
 export interface ILabel {
-	id: string;
+	id: number;
 	color: string;
 	name: string;
 }
@@ -15,4 +15,5 @@ export interface IIssue {
 	labels?: ILabel[];
 	created_at: string;
 	user: IUser;
+	testId?: string;
 }
