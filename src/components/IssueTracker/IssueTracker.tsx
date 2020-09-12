@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import TableContainer from '../common/TableContainer/TableContainer';
 import TableHead from '../common/TableHead/TableHead';
 import TableRow from '../common/TableRow/TableRow';
 import IssueItem from './IssueItem/IssueItem';
 import { IIssue } from '../../types/issueModel.types';
-import { fetchData } from '../../utils/api.service';
 
 const baseUrl = 'https://api.github.com/repos/facebook/react/issues';
 
@@ -15,10 +15,9 @@ const IssueTracker = () => {
 	useEffect(() => {
 		async function getIssues() {
 			try {
-				const res = await fetchData<IIssue[]>(baseUrl);
-				setIssues(res);
+				const res = await axios.get(baseUrl);
+				setIssues(res.data);
 			} catch (err) {
-				console.error('Error:', err);
 				setError(true);
 			}
 		}
@@ -26,13 +25,13 @@ const IssueTracker = () => {
 	}, []);
 
 	if (error) {
-		return <p>Something went wrong.</p>;
+		return <p data-testid="error">Something went wrong.</p>;
 	}
 
 	return (
 		<TableContainer>
 			<TableHead />
-			{issues.length > 1 ? (
+			{issues.length > 0 ? (
 				issues.map((issue) => (
 					<TableRow key={issue.number}>
 						<IssueItem
@@ -42,11 +41,12 @@ const IssueTracker = () => {
 							labels={issue.labels}
 							created_at={issue.created_at}
 							user={issue.user}
+							testId="issueItem"
 						/>
 					</TableRow>
 				))
 			) : (
-				<TableRow>No open issues</TableRow>
+				<TableRow testId="loading">Loading...</TableRow>
 			)}
 		</TableContainer>
 	);
