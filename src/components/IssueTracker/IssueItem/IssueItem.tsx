@@ -17,13 +17,16 @@ const IssueItem = ({
 	labels = [],
 	created_at,
 	user,
+	testId,
 }: IIssue) => {
 	const createdAt = formatDate(created_at);
 
 	return (
 		<Container>
 			<IssueBody>
-				<Title href={url}>{title}</Title>
+				<Title href={url} data-testid={testId}>
+					{title}
+				</Title>
 				{labels && (
 					<TagList>
 						{labels.map((label: ILabel) => (

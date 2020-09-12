@@ -3,6 +3,10 @@ import spacing from '../../../styles/spacing';
 import colors from '../../../styles/colors';
 import { mediumUp } from '../../../styles/breakpoints';
 
+interface ITitle {
+	'data-testid'?: string;
+}
+
 export const Container = styled.div`
 	width: 100%;
 	display: flex;
@@ -22,7 +26,9 @@ export const IssueBody = styled.div`
 	}
 `;
 
-export const Title = styled.a`
+export const Title = styled.a.attrs((props: ITitle) => ({
+	'data-testid': props['data-testid'],
+}))`
 	font-size: 16px;
 	line-height: 1.3;
 	font-weight: 500;
